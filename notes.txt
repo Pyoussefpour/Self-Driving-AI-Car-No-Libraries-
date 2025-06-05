@@ -1,0 +1,15 @@
+what has been done do far?
+- there is a neural network that is able to drive the car
+-  the nueral network is not trained and cannot learn from the data 
+
+what is the next step?
+- train the neural network to learn from the data 
+- use an RL algorithm to train the neural network, code it in js
+- upload to github, with the modificaitons
+- add more cars, randomly generated
+    - cars can't be in the same place
+    - maybe varrying speed
+
+- have a finish line, to end the episode
+
+- later on maybe add a curved road
