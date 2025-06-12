@@ -13,3 +13,9 @@ what is the next step?
 - have a finish line, to end the episode
 
 - later on maybe add a curved road
+
+TODO: Randomize Traffic - done
+TODO: Maybe make the win look for exciting
+
+RL
+TODO: Do it with 50 AI bots (with the same network) -> look into batch learning with drl
