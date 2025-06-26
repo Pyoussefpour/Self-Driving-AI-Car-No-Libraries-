@@ -12,11 +12,11 @@ class CarRLEnvironment {
         this.currentStep = 0;
         
         // Reward parameters
-        this.CRASH_PENALTY = -100;
+        this.CRASH_PENALTY = -500;
         this.FINISH_REWARD = 10000;
-        this.PROGRESS_REWARD_SCALE = 1.0;
-        this.SPEED_REWARD_SCALE = 0.1;
-        this.TIME_PENALTY = -0.5;
+        this.PROGRESS_REWARD_SCALE = 100.0;
+        this.SPEED_REWARD_SCALE = 20;
+        this.TIME_PENALTY = -1;
         
         this.lastY = 100; // Track progress
         
@@ -181,13 +181,12 @@ class CarRLEnvironment {
         // Crash penalty
         if (this.car.damaged) {
             reward += this.CRASH_PENALTY;
-            return reward; // End episode immediately
+            return reward;
         }
         
         // Finish reward
         if (this.car.y <= this.FINISH_LINE_Y) {
             reward += this.FINISH_REWARD;
-            // Bonus for finishing faster
             const timeBonus = Math.max(0, (this.MAX_STEPS - this.currentStep) / this.MAX_STEPS * 100);
             reward += timeBonus;
             return reward;
@@ -195,17 +194,17 @@ class CarRLEnvironment {
         
         // Progress reward (moving forward)
         const progress = this.lastY - this.car.y; // Positive when moving forward
-        if (progress > 0) {
-            reward += progress * this.PROGRESS_REWARD_SCALE;
-        } else {
-            // Small penalty for going backwards or not moving
-            reward += progress * 0.5;
-        }
+        reward += progress * this.PROGRESS_REWARD_SCALE;
         this.lastY = this.car.y;
         
-        // Speed reward (encourage forward movement)
-        if (this.car.speed > 0) {
+        // Speed reward (encourage any movement)
+        if (this.car.speed > 0) {  // Changed from 0.5 to encourage any movement
             reward += this.car.speed * this.SPEED_REWARD_SCALE;
+        }
+        
+        // Smaller penalty for not moving
+        if (this.car.speed === 0) {
+            reward -= 50;  // Changed from CRASH_PENALTY to a smaller penalty
         }
         
         // Time penalty (encourage efficiency)
@@ -215,7 +214,7 @@ class CarRLEnvironment {
         const laneCenter1 = this.road.getLaneCenter(1);
         const distanceFromCenter = Math.abs(this.car.x - laneCenter1);
         if (distanceFromCenter < 30) { // Within lane
-            reward += 0.5;
+            reward += 5;  // Increased from 0.5 to make it more significant
         }
         
         return reward;
