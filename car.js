@@ -1,5 +1,5 @@
 class Car{
-    constructor(x, y, width, height, controlType, maxSpeed = 3){
+    constructor(x, y, width, height, controlType, maxSpeed = 3, providedBrain = null){
         this.x = x;
         this.y = y;
         this.width = width;
@@ -16,11 +16,17 @@ class Car{
 
         if (controlType != "Dummy"){
             this.sensor = new Sensor(this);
-            this.brain = new NeuralNetwork([this.sensor.rayCount, 6, 4]);
+            if (controlType == "AI"){
+                if (providedBrain == null) {
+                    // this.brain = new NeuralNetwork([this.sensor.rayCount, 6, 4]);
+                } else {
+                    this.brain = providedBrain;
+                }
+            }
         }
-        // if (!this.damaged){
-        //     this.polygon = this.#createPolygon();
-        // }
+        if (!this.damaged){
+            this.polygon = this.#createPolygon();
+        }
         this.controls = new Controls(controlType);
         
     }
@@ -34,15 +40,17 @@ class Car{
         if (this.sensor){
             this.sensor.update(roadBorders, traffic);
             const inputs = this.sensor.readings.map(s =>s==null? 0 : 1-s.offset);
-            const outputs = NeuralNetwork.feedForward(inputs, this.brain);
-            console.log(outputs);
+            // const outputs = NeuralNetwork.feedForward(inputs, this.brain);
+            // console.log(outputs);
             if (this.useBrain){
-                this.controls.forward = outputs[0];
-                this.controls.left = outputs[1];
-                this.controls.right = outputs[2];
-                this.controls.reverse = outputs[3];
+                this.controls.forward = outputs[0] > 0.5;
+                this.controls.left = outputs[1] > 0.5;
+                this.controls.right = outputs[2] > 0.5;
+                this.controls.reverse = outputs[3] > 0.5;
             }
+            return this.sensor.readings;
         }
+        return false;
     }
 
     #assessDamage(roadBorders, traffic){

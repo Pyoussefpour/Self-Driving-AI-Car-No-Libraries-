@@ -136,22 +136,31 @@ class CarRLEnvironment {
         // 1. Array of 4 values [forward, left, right, reverse] (0 or 1)
         // 2. Single integer (0=forward, 1=left, 2=right, 3=reverse)
         // 3. Array of 4 continuous values [0, 1] for each control
-        console.log(action);
-        if (Array.isArray(action)) {
-            if (action.length === 4) {
-                // Continuous or binary action array
-                this.car.controls.forward = action[0] > 0.5;
-                this.car.controls.left = action[1] > 0.5;
-                this.car.controls.right = action[2] > 0.5;
-                this.car.controls.reverse = action[3] > 0.5;
-            }
-        } else if (typeof action === 'number') {
-            // Discrete action
+        // console.log(action);
+        
+        // Reset all controls first
+        this.car.controls.forward = false;
+        this.car.controls.left = false;
+        this.car.controls.right = false;
+        this.car.controls.reverse = false;
+        
+        // Apply action based on discrete input (0-3)
+        if (typeof action === 'number') {
             switch(action) {
-                case 0: this.car.controls.forward = true; break;
-                case 1: this.car.controls.left = true; break;
-                case 2: this.car.controls.right = true; break;
-                case 3: this.car.controls.reverse = true; break;
+                case 0: // No action
+                    this.car.controls.forward = true;
+                    break;
+                case 1: // Forward only
+                    this.car.controls.forward = true;
+                    this.car.controls.left = true;
+                    break;
+                case 2: // Forward and left
+                    this.car.controls.forward = true;
+                    this.car.controls.right = true;
+                    break;
+                case 3: // Forward and right
+                    break;
+                    
             }
         }
     }

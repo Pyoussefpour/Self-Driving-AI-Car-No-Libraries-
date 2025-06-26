@@ -17,7 +17,7 @@ function generateTraffic() {
     const traffic = [];
     const SEGMENT_LENGTH = 200; // Length of each road segment
     const CAR_SPACING = 150; // Minimum distance between cars
-    const numberOfSegments = Math.floor(Math.abs(FINISH_LINE_Y+3000) / SEGMENT_LENGTH);
+    const numberOfSegments = Math.floor(Math.abs(FINISH_LINE_Y+500) / SEGMENT_LENGTH);
     
     for (let segment = 0; segment < numberOfSegments; segment++) {
         const segmentStart = -100 - (segment * SEGMENT_LENGTH);
@@ -41,7 +41,7 @@ function generateTraffic() {
             // Place cars in chosen lanes
             occupiedLanes.forEach(lane => {
                 const y_pos = segmentStart - Math.random() * (SEGMENT_LENGTH - CAR_SPACING);
-                traffic.push(new Car(road.getLaneCenter(lane), y_pos, 30, 50, "Dummy", 2));
+                traffic.push(new Car(road.getLaneCenter(lane), y_pos, 30, 50, "Dummy", 1));
             });
         }
     }
@@ -49,13 +49,6 @@ function generateTraffic() {
     
     return traffic;
 }
-// const traffic = [ 
-//     new Car(road.getLaneCenter(1), -150, 30, 50, "Dummy", 2),
-//     new Car(road.getLaneCenter(0), -300, 30, 50, "Dummy", 2),
-//     new Car(road.getLaneCenter(2), -300, 30, 50, "Dummy", 2),
-//     new Car(road.getLaneCenter(1), -500, 30, 50, "Dummy", 2),
-//     new Car(road.getLaneCenter(0), -700, 30, 50, "Dummy", 2),
-// ]
 const traffic = generateTraffic();
 
 animate();

@@ -10,12 +10,15 @@ what is the next step?
     - cars can't be in the same place
     - maybe varrying speed
 
-- have a finish line, to end the episode
 
 - later on maybe add a curved road
 
-TODO: Randomize Traffic - done
-TODO: Maybe make the win look for exciting
 
-RL
-TODO: Do it with 50 AI bots (with the same network) -> look into batch learning with drl
+
+
+
+NN:
+0 - nothing
+1 - up
+2 - up + left
+3 - up + right

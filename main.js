@@ -12,11 +12,13 @@ let bestCar = cars[0];
 if(localStorage.getItem("bestBrain")){
     bestCar.brain = JSON.parse(localStorage.getItem("bestBrain"));
 }
+
+// const car = new Car(road.getLaneCenter(1), 100, 30, 50, "Human", 2);
 // car.draw(carCtx);
 const traffic = [ 
-    new Car(road.getLaneCenter(1), -150, 30, 50, "Dummy", 2),
-    new Car(road.getLaneCenter(0), -300, 30, 50, "Dummy", 2),
-    new Car(road.getLaneCenter(2), -300, 30, 50, "Dummy", 2),
+    new Car(road.getLaneCenter(1), -150, 30, 50, "Dummy", 1),
+    new Car(road.getLaneCenter(0), -300, 30, 50, "Dummy", 1),
+    new Car(road.getLaneCenter(2), -300, 30, 50, "Dummy", 1),
 ]
 
 

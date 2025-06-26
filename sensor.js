@@ -10,6 +10,7 @@ class Sensor{
     }
 
     update(roadBorders, traffic){
+        // update the rays
         this.#castRays();
         this.readings = [];
         for (let i=0; i<this.rays.length; i++){
@@ -19,6 +20,7 @@ class Sensor{
 
 
     #getReading(ray, roadBorders, traffic){
+        // get the reading for each ray
         let touches = [];
         for (let i=0; i<roadBorders.length; i++){
             const touch = getIntersection(ray[0], ray[1], roadBorders[i][0], roadBorders[i][1]);
