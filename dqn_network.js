@@ -171,7 +171,7 @@ class DQN {
                 dst.w[i] = src.w[i].slice();
         }
         return net;
-    }
+    } 
 
     /* ---------- parameter I/O ---------- */
     getParameters() {

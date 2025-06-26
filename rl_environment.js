@@ -131,20 +131,11 @@ class CarRLEnvironment {
     
     applyAction(action) {
         
-        // Apply action
-        // Action can be either:
-        // 1. Array of 4 values [forward, left, right, reverse] (0 or 1)
-        // 2. Single integer (0=forward, 1=left, 2=right, 3=reverse)
-        // 3. Array of 4 continuous values [0, 1] for each control
-        // console.log(action);
-        
-        // Reset all controls first
         this.car.controls.forward = false;
         this.car.controls.left = false;
         this.car.controls.right = false;
         this.car.controls.reverse = false;
         
-        // Apply action based on discrete input (0-3)
         if (typeof action === 'number') {
             switch(action) {
                 case 0: // No action

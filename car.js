@@ -11,7 +11,7 @@ class Car{
         this.friction = 0.05;
         this.angle = 0;
         this.damaged = false;
-
+ 
         this.useBrain = controlType == "AI";
 
         if (controlType != "Dummy"){
