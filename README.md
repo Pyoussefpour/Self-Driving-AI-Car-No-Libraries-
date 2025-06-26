@@ -39,9 +39,9 @@ While the original project provides the foundational car mechanics, road definit
 ### Action Space
 4 discrete actions:
 1. Forward
-2. Left
-3. Right
-4. Reverse
+2. Forward + Left
+3. Forward + Right
+4. No Movement
 
 ### Reward Structure
 - Progress reward for moving forward
